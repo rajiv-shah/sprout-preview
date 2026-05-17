@@ -275,6 +275,14 @@ h1, h2, h3, h4 {
   max-width: 1240px;
   margin: 0 auto;
 }
+/* On pages where the materials band is the first element, remove the top
+   padding and hide the blank <p> Publii injects before HTML blocks */
+.c-shell:has(.sp-materials) {
+  padding-top: 0;
+}
+.c-shell:has(.sp-materials) > p {
+  display: none;
+}
 
 /* ----------------------------------------------------------
    SECTIONS
@@ -1048,7 +1056,7 @@ h1, h2, h3, h4 {
    Replace each placeholder with <img src="..."> when photography lands.
    -------------------------------------------------------------------------- */
 .sp-materials {
-  margin: 64px -40px;
+  margin: 0 -40px 64px;
   padding: 56px 40px 64px;
   background: var(--paper);
 }
@@ -1283,6 +1291,11 @@ h1, h2, h3, h4 {
 /* --------------------------------------------------------------------------
    8. REFINED TIMELINE
    -------------------------------------------------------------------------- */
+/* The refined timeline provides its own hairline — suppress the c-section
+   and original c-timeline-row borders so only one line shows */
+.c-section:has(.sp-timeline-refined) { border-top: none; }
+.c-section--no-top { border-top: none !important; }
+.c-timeline.sp-timeline-refined .c-timeline-row { border-top: none !important; }
 .c-timeline.sp-timeline-refined {
   border-top: 1px solid rgba(26,26,20,0.4);
 }
