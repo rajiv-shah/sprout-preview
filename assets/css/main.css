@@ -1089,8 +1089,8 @@ h1, h2, h3, h4 {
 }
 .sp-materials__cap {
   font-family: var(--mono);
-  font-size: 11px;
-  line-height: 1.45;
+  font-size: 13px;
+  line-height: 1.5;
   letter-spacing: 0.04em;
   color: var(--ink-soft);
   padding: 0 6px;
@@ -1098,7 +1098,7 @@ h1, h2, h3, h4 {
 .sp-materials__cap strong {
   display: block;
   color: var(--leaf-d);
-  font-size: 11px;
+  font-size: 13px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   margin-bottom: 4px;
@@ -1115,7 +1115,7 @@ h1, h2, h3, h4 {
    -------------------------------------------------------------------------- */
 .sp-image-tile {
   position: relative;
-  aspect-ratio: 4 / 5;
+  aspect-ratio: 1 / 1;
   overflow: hidden;
   background: var(--leaf-d);
   color: var(--cream);
@@ -1123,15 +1123,25 @@ h1, h2, h3, h4 {
   align-items: flex-end;
   padding: 16px;
 }
-.sp-image-tile > img {
+/* Publii wraps uploaded images in <figure class="post__image"> so we
+   target both direct img and the figure wrapper */
+.sp-image-tile figure {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  padding: 0;
+}
+.sp-image-tile img {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
+  max-width: none;
+  max-height: none;
   object-fit: cover;
   display: block;
 }
-.sp-image-tile:has(> img) > .sp-image-tile__lbl { display: none; }
+.sp-image-tile:has(img) > .sp-image-tile__lbl { display: none; }
 
 .sp-image-tile--earth   { background: linear-gradient(135deg, #5e421f 0%, #2a1b08 100%); }
 .sp-image-tile--leaf    { background: linear-gradient(135deg, #4d5e35 0%, #1f3214 100%); }
@@ -1150,7 +1160,7 @@ h1, h2, h3, h4 {
   );
   pointer-events: none;
 }
-.sp-image-tile:has(> img)::after { display: none; }
+.sp-image-tile:has(img)::after { display: none; }
 
 .sp-image-tile__lbl {
   position: relative;
