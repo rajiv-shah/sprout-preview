@@ -1,0 +1,1324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Grow a Grocery – Unicorn Grocery</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #f9f7f3;
+    --surface: #ffffff;
+    --border: #e0dbd0;
+    --text: #1e1e1e;
+    --text-muted: #6b6560;
+    --accent: #3d6b4f;
+    --accent-light: #eaf2ec;
+    --accent-hover: #2e5040;
+    --nav-width: 260px;
+    --font: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  }
+
+  html { scroll-behavior: smooth; font-size: 16px; }
+
+  body {
+    font-family: var(--font);
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+  }
+
+  /* Layout */
+  .layout {
+    display: flex;
+    min-height: 100vh;
+  }
+
+  /* Sidebar */
+  .sidebar {
+    width: var(--nav-width);
+    min-width: var(--nav-width);
+    background: var(--surface);
+    border-right: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow-y: auto;
+    flex-shrink: 0;
+  }
+
+  .sidebar-header {
+    padding: 24px 20px 16px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .sidebar-header .logo {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 6px;
+  }
+
+  .sidebar-header h1 {
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 1.3;
+    color: var(--text);
+  }
+
+  .sidebar nav {
+    padding: 12px 0;
+  }
+
+  .nav-section-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    padding: 14px 20px 4px;
+  }
+
+  .sidebar nav a {
+    display: block;
+    padding: 7px 20px;
+    font-size: 13.5px;
+    color: var(--text-muted);
+    text-decoration: none;
+    border-left: 3px solid transparent;
+    transition: all 0.15s;
+  }
+
+  .sidebar nav a:hover {
+    color: var(--accent);
+    background: var(--accent-light);
+    border-left-color: var(--accent);
+  }
+
+  .sidebar nav a.active {
+    color: var(--accent);
+    font-weight: 600;
+    border-left-color: var(--accent);
+    background: var(--accent-light);
+  }
+
+  /* Main content */
+  .main {
+    flex: 1;
+    min-width: 0;
+    padding: 0 0 80px;
+  }
+
+  /* Hero */
+  .hero {
+    background: var(--accent);
+    color: #fff;
+    padding: 48px 56px 40px;
+  }
+
+  .hero .source-badge {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    background: rgba(255,255,255,0.2);
+    color: rgba(255,255,255,0.9);
+    padding: 4px 10px;
+    border-radius: 3px;
+    margin-bottom: 20px;
+  }
+
+  .hero h1 {
+    font-size: 36px;
+    font-weight: 800;
+    line-height: 1.15;
+    margin-bottom: 10px;
+  }
+
+  .hero .subtitle {
+    font-size: 17px;
+    opacity: 0.85;
+    margin-bottom: 24px;
+    font-weight: 400;
+  }
+
+  .hero .meta {
+    font-size: 13px;
+    opacity: 0.7;
+  }
+
+  /* Audio player */
+  .audio-section {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 28px 56px;
+  }
+
+  .audio-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 8px;
+  }
+
+  .audio-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 14px;
+  }
+
+  .audio-note {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-top: 10px;
+  }
+
+  audio {
+    width: 100%;
+    max-width: 580px;
+    height: 40px;
+    display: block;
+    accent-color: var(--accent);
+  }
+
+  /* SPRöUT context note */
+  .context-note {
+    background: var(--accent-light);
+    border-left: 4px solid var(--accent);
+    padding: 20px 56px;
+    font-size: 14px;
+    color: var(--text);
+    line-height: 1.6;
+  }
+
+  .context-note strong {
+    color: var(--accent);
+  }
+
+  /* Content sections */
+  .section {
+    padding: 52px 56px;
+    border-bottom: 1px solid var(--border);
+    max-width: 820px;
+  }
+
+  .section:last-child {
+    border-bottom: none;
+  }
+
+  .section-number {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 10px;
+  }
+
+  .section h2 {
+    font-size: 26px;
+    font-weight: 800;
+    line-height: 1.2;
+    color: var(--text);
+    margin-bottom: 24px;
+  }
+
+  .section h3 {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text);
+    margin: 32px 0 12px;
+  }
+
+  .section h4 {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text);
+    margin: 24px 0 8px;
+  }
+
+  .section p {
+    font-size: 15.5px;
+    color: var(--text);
+    margin-bottom: 14px;
+    max-width: 680px;
+  }
+
+  .section ul {
+    list-style: none;
+    margin: 0 0 18px 0;
+    padding: 0;
+    max-width: 680px;
+  }
+
+  .section ul li {
+    font-size: 15.5px;
+    color: var(--text);
+    padding: 4px 0 4px 20px;
+    position: relative;
+    line-height: 1.6;
+  }
+
+  .section ul li::before {
+    content: '–';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-weight: 600;
+  }
+
+  /* Nested list */
+  .section ul ul {
+    margin: 4px 0 4px 16px;
+  }
+
+  /* Callout boxes */
+  .callout {
+    background: var(--accent-light);
+    border: 1px solid #c5dfc9;
+    border-radius: 6px;
+    padding: 20px 24px;
+    margin: 24px 0;
+    max-width: 680px;
+    font-size: 15px;
+  }
+
+  .callout p {
+    margin-bottom: 8px;
+  }
+
+  .callout p:last-child {
+    margin-bottom: 0;
+  }
+
+  /* Model nutshell box */
+  .nutshell {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-top: 4px solid var(--accent);
+    border-radius: 4px;
+    padding: 24px 28px;
+    margin: 24px 0;
+    max-width: 680px;
+  }
+
+  .nutshell h4 {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin: 0 0 14px 0;
+  }
+
+  /* Timeline */
+  .timeline {
+    border-left: 2px solid var(--border);
+    padding-left: 24px;
+    margin: 16px 0;
+    max-width: 640px;
+  }
+
+  .timeline-item {
+    margin-bottom: 24px;
+    position: relative;
+  }
+
+  .timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -30px;
+    top: 6px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--accent);
+    border: 2px solid var(--bg);
+  }
+
+  .timeline-item .milestone {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 6px;
+  }
+
+  .timeline-item ul {
+    margin-bottom: 0;
+  }
+
+  /* Figures */
+  .stat-row {
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+    margin: 24px 0;
+  }
+
+  .stat-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 18px 22px;
+    min-width: 160px;
+  }
+
+  .stat-card .stat-value {
+    font-size: 24px;
+    font-weight: 800;
+    color: var(--accent);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+
+  .stat-card .stat-label {
+    font-size: 12px;
+    color: var(--text-muted);
+    font-weight: 500;
+  }
+
+  /* Scoring table */
+  .score-table {
+    width: 100%;
+    max-width: 680px;
+    border-collapse: collapse;
+    margin: 16px 0 24px;
+    font-size: 14px;
+  }
+
+  .score-table th {
+    background: var(--accent);
+    color: #fff;
+    text-align: left;
+    padding: 10px 14px;
+    font-weight: 600;
+    font-size: 12px;
+    letter-spacing: 0.04em;
+  }
+
+  .score-table td {
+    padding: 9px 14px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+    line-height: 1.5;
+  }
+
+  .score-table tr:last-child td {
+    border-bottom: none;
+  }
+
+  .score-table tr:nth-child(even) td {
+    background: var(--bg);
+  }
+
+  .score-table .score-label {
+    font-weight: 700;
+    color: var(--accent);
+    white-space: nowrap;
+  }
+
+  .mark-table {
+    width: 100%;
+    max-width: 520px;
+    border-collapse: collapse;
+    margin: 16px 0 24px;
+    font-size: 14px;
+  }
+
+  .mark-table th {
+    background: var(--accent);
+    color: #fff;
+    text-align: left;
+    padding: 10px 14px;
+    font-weight: 600;
+    font-size: 12px;
+  }
+
+  .mark-table td {
+    padding: 9px 14px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+
+  .mark-table tr:last-child td { border-bottom: none; }
+  .mark-table tr:nth-child(even) td { background: var(--bg); }
+
+  .draft-banner {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    background: #fff3cd;
+    color: #856404;
+    border: 1px solid #ffc107;
+    padding: 4px 10px;
+    border-radius: 3px;
+    margin-bottom: 16px;
+  }
+
+  .checklist {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 18px;
+    max-width: 680px;
+  }
+
+  .checklist li {
+    font-size: 15px;
+    padding: 5px 0 5px 28px;
+    position: relative;
+    line-height: 1.5;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .checklist li:last-child { border-bottom: none; }
+
+  .checklist li::before {
+    content: '☐';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-size: 14px;
+  }
+
+  /* Copyright */
+  .copyright {
+    padding: 32px 56px;
+    font-size: 12.5px;
+    color: var(--text-muted);
+    border-top: 1px solid var(--border);
+    line-height: 1.6;
+    max-width: 820px;
+  }
+
+  /* Mobile toggle */
+  .menu-toggle {
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 200;
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    width: 52px;
+    height: 52px;
+    font-size: 22px;
+    cursor: pointer;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.2);
+    align-items: center;
+    justify-content: center;
+  }
+
+  @media (max-width: 860px) {
+    .hero { padding: 36px 28px 32px; }
+    .hero h1 { font-size: 26px; }
+    .audio-section { padding: 24px 28px; }
+    .context-note { padding: 18px 28px; }
+    .section { padding: 40px 28px; }
+    .copyright { padding: 24px 28px; }
+
+    .sidebar {
+      position: fixed;
+      left: -100%;
+      top: 0;
+      z-index: 100;
+      transition: left 0.25s ease;
+      box-shadow: 4px 0 20px rgba(0,0,0,0.1);
+    }
+
+    .sidebar.open {
+      left: 0;
+    }
+
+    .menu-toggle {
+      display: flex;
+    }
+
+    .overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.4);
+      z-index: 99;
+    }
+
+    .overlay.open {
+      display: block;
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="overlay" id="overlay" onclick="closeSidebar()"></div>
+
+<div class="layout">
+
+  <!-- Sidebar navigation -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <div class="logo">Unicorn Grocery</div>
+      <h1>Grow a Grocery</h1>
+    </div>
+    <nav>
+      <div class="nav-section-label">Listen</div>
+      <a href="#podcast">Podcast episode</a>
+
+      <div class="nav-section-label">Guide</div>
+      <a href="#intro">Introduction</a>
+      <a href="#who-we-are">Who we are</a>
+      <a href="#people">1. People</a>
+      <a href="#planning">2. Planning</a>
+      <a href="#leicester">Leicester &amp; scale</a>
+      <a href="#produce">3. Produce</a>
+      <a href="#sprouting-buying">Buying criteria</a>
+      <a href="#premises">4. Premises</a>
+      <a href="#practical">5. Practical resources</a>
+      <a href="#procedures">6. Procedures and pricing</a>
+      <a href="#promotion">7. Promotion</a>
+      <a href="#policies">8. Policies and principles</a>
+      <a href="#conclusion">Conclusion</a>
+    </nav>
+  </aside>
+
+  <!-- Main -->
+  <main class="main">
+
+    <!-- Hero -->
+    <div class="hero" id="top">
+      <div class="source-badge">Unicorn Grocery &mdash; Manchester</div>
+      <h1>Grow a Grocery</h1>
+      <p class="subtitle">A guide to starting and growing a wholefood co-operative</p>
+      <p class="meta">Originally published 2010 &nbsp;&middot;&nbsp; Revised 2022 &nbsp;&middot;&nbsp; SPR&ouml;UT figures updated April 2026 &nbsp;&middot;&nbsp; &copy; Unicorn Grocery Worker Co-operative</p>
+    </div>
+
+    <!-- Audio player -->
+    <div class="audio-section" id="podcast">
+      <div class="audio-label">Podcast</div>
+      <div class="audio-title">The blueprint for worker-owned groceries</div>
+      <audio controls>
+        <source src="The_blueprint_for_worker_owned_groceries.m4a" type="audio/mp4">
+        Your browser does not support the audio element.
+      </audio>
+      <p class="audio-note">An AI-generated audio overview of this guide, created with NotebookLM. Around 20 minutes. Good for getting a feel before reading the full text.</p>
+    </div>
+
+    <!-- Context note -->
+    <div class="context-note">
+      <strong>A note from SPR&ouml;UT:</strong> SPR&ouml;UT is intended to become a worker-owned wholefood grocery serving Leicester and the surrounding area — a permanent, stable food shop focused on staple ingredients at competitive prices, owned and run by the people who work in it. It is currently in development and not yet legally established.
+      <br><br>
+      In March 2026, Rajiv and Tamsin joined a study day at Unicorn in Manchester, alongside people from co-ops and food projects across the UK. Unicorn ran the day because they want more shops like theirs to exist. They shared how they actually work, including the parts that are hard. This guide is part of the same spirit. Unicorn publish it under a Creative Commons licence so others can use and build on it. If you're thinking about starting something similar, it's worth reading in full.
+      <br><br>
+      Where this version differs from the original: cost figures, wage rates, and business rates have been updated to reflect April 2026 conditions. The premises and finances sections include additional guidance for a Leicester-scale operation — a smaller starting footprint than Unicorn's current size, closer to the Daily Bread model that originally inspired it.
+    </div>
+
+    <!-- INTRODUCTION -->
+    <section class="section" id="intro">
+      <div class="section-number">Introduction</div>
+      <h2>Want to be a co-operative grocer?</h2>
+
+      <p>This guide is designed to help bring more wholefood co-operatives owned and run by their workers into the world, by sharing and spreading the business model tried and tested by Unicorn since 1996. Whether starting a new food shop or expanding an existing co-operative, you may choose to follow this model completely or use elements of our experience.</p>
+
+      <h3>The supermarket cannot last</h3>
+      <p>As a business, Unicorn has been fairly successful; as revolutionaries we still have work to do. The need for an alternative food system is as strong as ever; just a handful of corporations control 80% of the UK grocery market. Despite the growth of farmers' markets, box schemes and community food enterprises, the march of the multiples continues to restrict our choices on how and where to shop. Cheap, exploitative, industrially-produced food still rules.</p>
+
+      <p>Unicorn Grocery was established to provide a real alternative to the supermarket. We have achieved this goal on our premises, but we have not really fulfilled our purpose until people stop driving across the country to shop with us. Our business model is one of many alternatives from which to build a better food system.</p>
+
+      <h3>So why not? The honest answer</h3>
+      <p>So far, we've given you the sell. But the task ahead of you should not be underestimated.</p>
+
+      <h4>Not all of us are founders</h4>
+      <p>Starting any business is extraordinarily hard work. It's risky, scary, and requires an enormous amount of drive, determination, and an unshakeable belief in the project and your group. Setting up a new enterprise is a vastly different undertaking to working in one.</p>
+      <p>You will almost certainly need to work your regular paid job throughout much of the planning stage. It's an enormous investment of time and energy, most likely at the expense of a social life or family time. And unlike a traditional entrepreneur, you won't be rewarded at the end with a business you can profit from financially, other than drawing a wage, of course.</p>
+
+      <h4>Not all of us are co-operators</h4>
+      <p>Working collectively has many rewards, which we hope we illuminate and celebrate throughout this guide. But if you commit to a democratic worker co-op model, you are relinquishing a large element of individual control of the project.</p>
+      <p>Collective business decisions require a capacity for compromise, self-awareness, letting go and negotiation beyond what many of us have experienced. For some people, working this way is just too much.</p>
+
+      <h4>Not all of us are grocers</h4>
+      <p>Passion for the vision and values is critical, but must be paired with a genuine desire to be a grocer, and the skills this trade involves. Between its members, the founding group needs to understand the market, be able to source a range of appealing foods, price them sensibly, handle them safely and merchandise them effectively. You need to comprehend employment law and food hygiene, know the difference between mark-up and margin, gross profit and net.</p>
+      <p>You also need to want to work in a supermarket. Be happy handling food, delivering customer service, serving on the till, stacking shelves, and cleaning the floor. Repetitive, physical work is at the heart of grocery.</p>
+      <p>Finally, it's not sexy or fancy. If you're imagining a boutique high-street shop with immaculate shelves, pristine window displays or high-end artisanal treats, this guide is not for you. Grocery is for the masses, for us to buy our weekly shop of low-price basic ingredients.</p>
+
+      <div class="callout">
+        <p>Being a grocer is a fantastic, honest occupation, and can bring great satisfaction, but it's not for everyone. Is it for you?</p>
+        <p>Our model is not suitable for every location or group of people, and the internet offers many other guides on setting up a co-operative or food shop. But we do believe that Unicorn's experience could make starting and growing your own shop just a little easier, and with this guide we offer our business model to be used, built upon and improved.</p>
+      </div>
+    </section>
+
+    <!-- WHO WE ARE -->
+    <section class="section" id="who-we-are">
+      <div class="section-number">Who we are</div>
+      <h2>Unicorn Grocery</h2>
+
+      <p>Situated in Chorlton, South Manchester, Unicorn Grocery is one of the biggest and most successful independent wholefood shops in the UK, twice named the nation's 'Best Food Retailer' at the BBC Food and Farming Awards, and placed top in Ethical Consumer's most recent national supermarket ranking.</p>
+
+      <div class="stat-row">
+        <div class="stat-card"><div class="stat-value">1,400m&sup2;</div><div class="stat-label">Shop premises</div></div>
+        <div class="stat-card"><div class="stat-value">&pound;9m</div><div class="stat-label">Annual turnover (approx.)</div></div>
+        <div class="stat-card"><div class="stat-value">6,500+</div><div class="stat-label">Transactions per week (approx.)</div></div>
+        <div class="stat-card"><div class="stat-value">~54</div><div class="stat-label">Worker-members (approx.)</div></div>
+      </div>
+
+      <p>Unicorn Grocery Ltd began trading on a 550m&sup2; site in September 1996, after over two years of preparation, mostly spent searching for the right premises. The business grew out of the founders' experience at the Daily Bread Co-operatives and Roger Sawtell's <em>Blueprint for 50 Co-ops</em>.</p>
+      <p>The essence remains: direct buying, competitive prices, wholesome foodstuffs and strong values.</p>
+
+      <div class="nutshell">
+        <h4>The Unicorn model in a nutshell</h4>
+        <ul>
+          <li>Wholefood grocery store (not a health food shop)</li>
+          <li>Fresh, wholesome, quality produce</li>
+          <li>Direct and bulk buying, alongside minimal handling</li>
+          <li>Minimal operating costs</li>
+          <li>Large premises (at least 400m&sup2;) with half-retail, half-warehouse space</li>
+          <li>Accessible location near (not in) a market centre, with parking, lorry access, and non-high street rates</li>
+          <li>Prices competitive with supermarkets, like for like</li>
+          <li>Co-operative ownership with a flat management structure</li>
+          <li>Broad range of products with a focus on staple cooking ingredients</li>
+          <li>Strong customer loyalty based on trust and consistent ethics</li>
+        </ul>
+      </div>
+
+      <h3>Good prices in a good shop</h3>
+      <p>We position ourselves against the multiples, aiming to provide our customers with the majority of their weekly shop. This combination requires a shop of a certain scale, plus car parking. If you are considering a much smaller site, you probably need to investigate an alternative business model.</p>
+
+      <p>Prices are kept low through:</p>
+      <ul>
+        <li>Focus on basic lines, particularly ingredients (basics are significantly less vulnerable to economic downturns)</li>
+        <li>Minimal handling throughout the supply chain</li>
+        <li>Bulk purchasing wherever possible, often direct from manufacturers</li>
+        <li>Comparing pricelists and switching suppliers as prices fluctuate</li>
+        <li>Paying on time, within one to two weeks</li>
+        <li>Adding value on site where profitable</li>
+        <li>No huge profits to pay shareholders or executive salaries</li>
+      </ul>
+
+      <h3>Co-operative working</h3>
+      <p>As a workers' co-op, the shop is owned and run by the people who work in it. Unicorn maintains a flat management structure in which all members earn the same hourly rate and make decisions by consensus. High staff retention and engagement do not happen by accident. The flat structure, which gives all members a say and a stake in the business, provides higher job satisfaction and member empowerment.</p>
+      <p>Unicorn currently has around 54 worker-members — a useful reminder that a well-run co-op does not need to be large to trade at significant scale. £9m annual turnover with 54 members is around £167,000 turnover per member.</p>
+    </section>
+
+    <!-- 1. PEOPLE -->
+    <section class="section" id="people">
+      <div class="section-number">Chapter 1</div>
+      <h2>People</h2>
+
+      <p>Co-operatives exist for the benefit of their members, placing people firmly at the centre of how they operate. Founding a worker co-op presents an opportunity to take control over our working lives and to create a business that intentionally benefits its workers and its community.</p>
+
+      <p>The first stage in setting up a new co-operative is to find a group of interested people with a shared commitment, and establish a working group. Unicorn's initial working group was small, as preparatory work can often be most efficiently achieved by two to four people.</p>
+
+      <h3>Skills</h3>
+      <p>A worker co-operative, like most small businesses, must meet the challenge of acquiring the necessary skills to operate from within a small group of people. Necessary skills encompass personnel/human resources, finance and accounting, marketing, trading and negotiation, IT and strategic planning. Strength in some fields may compensate for weakness in others, but all areas need to be addressed. In addition, everyone in this initial group needs healthy reserves of diplomacy, determination and graft.</p>
+
+      <h3>Recruitment</h3>
+      <p>Unicorn's success relies on member co-operation, and membership requires serious commitment, energy, capability and drive. Recruitment is costly and training is time consuming.</p>
+
+      <p>We cannot overemphasise the importance of recruiting the right number of the right people. Unicorn works constantly to avoid excessive labour costs or the opposite problem: an understaffed shop disappoints customers and burns out workers. Idealism alone may not fuel the team, but alongside decent wages and respect in the community, a strong sense of ownership and pride helps sustain the business through tough times.</p>
+
+      <h4>Casual labour</h4>
+      <p>Unicorn employs casual workers to assist in the day-to-day running of the shop. Casual wages are fixed at 80% of the member rate (due to fewer responsibilities, but still meeting the Living Wage). The arrangement is mutually beneficial: Unicorn provides work for people who cannot commit to regular hours, while a flexible bank of casual labour allows wage costs to adjust as sales fluctuate.</p>
+
+      <h3>Personnel</h3>
+      <p>A well-defined Personnel function supports a co-operative working culture in which everyone's individual needs are considered. Smaller businesses may think a Personnel person or team is unnecessary, but a dedicated team removes the need for everyone to know confidential information and provides accountability for vital roles.</p>
+
+      <p>In the absence of sufficient employees with HR experience, Unicorn has paid for CIPD qualifications for several members. A thick skin, a lot of patience, diplomacy and people-management skills are critical, and the ability to maintain confidentiality is absolutely vital.</p>
+
+      <h3>Training</h3>
+      <p>Unicorn's training philosophy focuses on enabling existing staff to develop and pass along skills, rather than buying in high-paid consultants. The programme includes induction training, fortnightly Training sessions for all members and probationers, and external training.</p>
+
+      <p>Following recruitment, Unicorn offers a seven-month probationary contract to successful candidates, after which a Membership Committee decides whether or not to offer the individual membership.</p>
+
+      <p>Fortnightly Training sessions offer a chance to share knowledge, host speakers, establish standard procedure, and meet face to face. Career development in a flat organisation translates to new challenges such as changing teams or roles, visiting related businesses, attending trade fairs, or undergoing courses.</p>
+    </section>
+
+    <!-- 2. PLANNING -->
+    <section class="section" id="planning">
+      <div class="section-number">Chapter 2</div>
+      <h2>Planning</h2>
+
+      <p>Good planning is essential in setting up a new retail outlet on this scale. The overall timescale for setting up a shop may be one to two years, or longer if the right premises cannot be found.</p>
+
+      <h3>Starting out</h3>
+      <p>A shared vision and a strong collective understanding of what you're aiming to create and achieve together is a crucial first step. Spending time pinning this down at the beginning can save a lot of difficulty later. Your working group will need to develop a vision and a mission you can all support.</p>
+
+      <h3>Timescale: 18-month overview</h3>
+
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="milestone">From the start</div>
+          <ul>
+            <li>Establish a working group and define your collective vision</li>
+            <li>Assign key roles (premises, finances, legal requirements, stock)</li>
+          </ul>
+        </div>
+        <div class="timeline-item">
+          <div class="milestone">By 3 months</div>
+          <ul>
+            <li>Consider suitable locations and the target market</li>
+            <li>Finalise your aims. New people join and add to the vision, not reinvent it</li>
+            <li>Develop a statement of purpose and necessary policies</li>
+            <li>Launch a summary document (prospectus) and gather expressions of interest</li>
+          </ul>
+        </div>
+        <div class="timeline-item">
+          <div class="milestone">By 4 months</div>
+          <ul>
+            <li>Find a suitable company structure and register</li>
+            <li>Open a bank account (consider ethical options: Triodos, the Co-op)</li>
+            <li>Write your business plan, including forecasts</li>
+            <li>Continue search for premises; the right site can take years to find</li>
+          </ul>
+        </div>
+        <div class="timeline-item">
+          <div class="milestone">By 6 months</div>
+          <ul>
+            <li>Assemble capital: work on a share offer and approach lenders</li>
+            <li>Narrow down your premises search</li>
+          </ul>
+        </div>
+        <div class="timeline-item">
+          <div class="milestone">By 15 months</div>
+          <ul>
+            <li>Locate a building (Unicorn did not sign a lease until 6 weeks before opening)</li>
+            <li>Fit out premises and buy equipment</li>
+            <li>Build your product range and supplier contacts</li>
+            <li>Ensure contracts, HR, health and safety, and food safety are in place</li>
+          </ul>
+        </div>
+        <div class="timeline-item">
+          <div class="milestone">By 18 months</div>
+          <ul>
+            <li>Undergo training and refine roles</li>
+            <li>Engage marketing and publicity from month 16</li>
+            <li>Test all systems and equipment in the final weeks</li>
+            <li>Do not spend the night in the new shop. It could set a bad precedent.</li>
+          </ul>
+        </div>
+      </div>
+
+      <h3>The market</h3>
+      <p>At an early stage, start researching suitable locations and carry out market research to determine if the Unicorn model fits your target area, potential customer base, and existing competition.</p>
+
+      <p>Most Unicorn customers fit into one or more of these groups: people who cook with basic ingredients, families with young children, and the 'green middle class'. Unicorn works to appeal to a cross-section of the mainly suburban public, and avoids being seen as niche. Labels like 'green', 'organic' or 'vegan' matter less than good quality and affordable food.</p>
+
+      <h4>Location</h4>
+      <p>Location is crucial. Lots of passing foot traffic is ideal, especially alongside convenient cycle, bus and road links, and car parking for weekly shoppers. Sawtell's original <em>Blueprint for 50 Co-ops</em> suggested a catchment of 250,000 people as a minimum — and that was for a simpler range without a full fresh produce section. Unicorn's later guidance raised this to 500,000, reflecting their grown model with a much larger fresh offer. Your actual requirement depends on the range you plan to offer and the density of suitable customers in your area.</p>
+
+      <h4>Supermarket competitors</h4>
+      <p>Unicorn knew from the start that it wanted head-to-head positioning with the multiples. Now that most supermarkets have many wholefood lines, price competition is fiercer than ever. But with the right products at the right price, sold by trusted people in a convenient place, you can appeal to everyone. Unicorn is down the road from a Morrison's and a Tesco Express.</p>
+    </section>
+
+    <!-- LEICESTER CONTEXT -->
+    <section class="section" id="leicester">
+      <div class="section-number">SPR&ouml;UT supplement &mdash; Planning chapter</div>
+      <h2>Starting in Leicester: scale and context</h2>
+
+      <p>Unicorn is an important reference point, but it is not the only one. The business that inspired Unicorn — Daily Bread Co-operative in Northampton — is arguably more relevant to where SPR&ouml;UT is starting. Daily Bread began trading in 1980 on a modest footprint, focused on dry goods and bulk buying, with on-site packing. It is still operating over 45 years later. That kind of longevity comes from keeping costs manageable and not overreaching at the start.</p>
+
+      <p>Roger Sawtell, who founded Daily Bread and wrote the <em>Blueprint for 50 Co-ops</em> that shaped both Daily Bread and Unicorn, originally projected a catchment of 250,000 people — and that was for a simpler range without a full fresh produce section. Leicester city alone has around 380,000 residents. The wider Leicestershire catchment exceeds 700,000. The population case for Leicester is solid on Sawtell's own terms, even before you add a fresh offer.</p>
+
+      <h3>Why a smaller starting footprint makes sense</h3>
+
+      <p>Unicorn's current premises of 1,400m&sup2; is the result of 28 years of growth. They started at 550m&sup2;. The guide's recommendation of 400m&sup2; minimum reflects their grown model, not a universal starting requirement.</p>
+
+      <p>For a Leicester first site, a target of 250&ndash;400m&sup2; is more appropriate. At 300m&sup2;, a roughly 50/50 retail-to-warehouse split gives around 150m&sup2; of shop floor — enough for a focused staples range, dry goods packing, a cold store, and display fridges. It keeps rent, rates, heating, and fit-out costs within a range that a co-op raising capital through loanstock and a social bank loan can realistically manage. The goal at this stage is to prove the model works in Leicester and build a stable customer base. Expansion can follow.</p>
+
+      <h3>Leicester vs. Manchester: what changes</h3>
+
+      <p>Unicorn is in Chorlton, South Manchester — a high-density area with a well-established customer base for exactly the kind of shop Unicorn is. Leicester has a different demographic spread. The concentration of that specific customer profile is lower in any single neighbourhood, but it exists across the city. A well-located Leicester site with good road and cycle access can draw from a wide enough catchment without needing the scale Unicorn requires to be viable in its specific location.</p>
+
+      <p>Leicester also has a significant advantage on cost. Commercial rents for industrial and trade counter units — the right type of premises for this model — run at roughly £6&ndash;12 per sq ft per year in Leicester, compared to considerably more in South Manchester. A 300m&sup2; unit at £8/sq ft costs around £25,000&ndash;£26,000 per year. Business rates on an off-centre unit at this size may qualify for Small Business Rate Relief, potentially reducing rates to zero in the early years.</p>
+
+      <div class="nutshell">
+        <h4>SPR&ouml;UT target premises specification (2026)</h4>
+        <ul>
+          <li>Size: 250&ndash;400m&sup2; total</li>
+          <li>Split: approximately 50% retail, 50% back-of-house (storage, packing, cold store)</li>
+          <li>Type: industrial or trade counter unit — not high street retail</li>
+          <li>Construction: steel portal frame or equivalent; forklift-friendly; level concrete floor</li>
+          <li>Access: level loading to rear; articulated lorry access; car parking to front</li>
+          <li>Location: within 2 miles of a substantial residential population; bus and cycle routes; near but not in a town or district centre</li>
+          <li>Rent: target £6&ndash;10/sq ft per year outside the city centre</li>
+          <li>Rateable value: aim below £12,000 for full Small Business Rate Relief</li>
+        </ul>
+      </div>
+
+      <h3>Daily Bread as a reference model</h3>
+
+      <p>Daily Bread Northampton is worth studying alongside Unicorn. It operates at a smaller scale, with a simpler range, and has been financially stable for decades. It draws on a Christian community foundation but the trading model is secular in its mechanics: bulk buying, on-site packing, competitive prices, low overheads, worker ownership. Roger Sawtell's original vision was not of one large Unicorn — it was of fifty smaller shops. SPR&ouml;UT is closer to that vision than to what Unicorn has grown into.</p>
+    </section>
+
+    <!-- 3. PRODUCE -->
+    <section class="section" id="produce">
+      <div class="section-number">Chapter 3</div>
+      <h2>Produce</h2>
+
+      <p>Unicorn is a wholefood grocery, providing and promoting affordable, wholesome food and a more sustainable form of trade. Our buyers constantly evaluate products for affordability and ethics; we try to trade as sustainably as possible while still accessing a price-conscious mainstream market. Generally, we focus on selling basic grocery lines at realistic prices.</p>
+
+      <h3>What we sell</h3>
+      <p>We do not stock products derived from animals, and we focus on foods which have undergone minimal processing. Unicorn has never marketed itself as a 'vegan' store, which would have turned away the majority of our customers before they set foot inside. Nor are we a health food shop; we do not stock supplements or natural remedies. We sell fresh and wholesome ingredients at affordable prices.</p>
+
+      <div class="nutshell">
+        <h4>Unicorn product mix (approximate)</h4>
+        <ul>
+          <li>Organic fresh fruit and vegetables: 31%</li>
+          <li>Branded ambient grocery, household, bodycare, babycare: 30%</li>
+          <li>Packed goods (own-brand dry goods): 16%</li>
+          <li>Chilled foods: 10%</li>
+          <li>Deli and bread: 7%</li>
+          <li>Unicorn Kitchen (prepared foods): 3%</li>
+          <li>Organic alcohol: 3%</li>
+        </ul>
+      </div>
+
+      <h3>Fresh fruit and veg</h3>
+      <p>Our entirely organic fresh fruit and vegetable section provides one of our greatest attractions. We buy directly from growers, over 90% for our UK fruit and vegetables, much of which arrives within one or two days of harvesting. Quality control is the hallmark of our fastidious Veg Team; we rely on correct storage methods, rotation, tasting, and reducing prices to shift sub-par produce.</p>
+
+      <h3>Packed dry goods</h3>
+      <p>In Unicorn's 'own brand' packaging, we offer all the essential ingredients to make a complete meal (around 130 products, each in several sizes). We showcase not only the most wholesome basics of the culinary world, but also unique products and quantities not available elsewhere. From 2019 we started selling commodities unpacked from hoppers, and we hope to expand this offer and further reduce packaging.</p>
+
+      <h3>Sourcing</h3>
+      <p>Unicorn relies heavily on the cost savings of buying direct, and currently deals with around 160 suppliers and growers. Smaller businesses will not be able to meet minimum order requirements for many primary producers. For a reasonable grocery offer, a start-up may want to aim for around 25 suppliers.</p>
+
+      <p>Like all our business decisions, we choose suppliers in line with our Principles of Purpose. We prioritise companies that match our own ethics, and attempt to avoid the worst offenders in global trade.</p>
+
+      <h4>What to look for</h4>
+      <p>Original ideas are few but a successful grocery should add a twist to the expected offer. Only sell products tasted by you or someone you trust, as rushed introductions may trip you up later. Consistent good quality and freshness are requirements. Be realistic: no matter how ingenious, ethical or delicious, certain price tags on certain products do not sell.</p>
+    </section>
+
+    <!-- SPROUT BUYING CRITERIA -->
+    <section class="section" id="sprouting-buying">
+      <div class="draft-banner">Draft v0.1 &mdash; April 2026</div>
+      <div class="section-number">Adapted from Unicorn's buying approach &mdash; supplement to Chapter 3</div>
+      <h2>Buying criteria</h2>
+
+      <p>This document sets out how SPR&ouml;UT decides what goes on the shelves. It's adapted from Unicorn's buying approach, shared here under the same Creative Commons licence. Anyone planning a similar shop is welcome to use and build on it.</p>
+
+      <h3>1. Purpose</h3>
+      <p>This document sets out the buying criteria SPR&ouml;UT is developing for when the shop opens. It covers what we plan to stock, how we intend to price it, the standards every product will need to meet, and how buying decisions will be made.</p>
+      <p>It applies to all purchases: ambient grocery, fresh produce, chilled, household and bodycare, and the ingredients used in prepared foods. Anyone involved in buying should know it well. Any new product must pass the red lines in section 4 before being considered further.</p>
+
+      <h3>2. Principles</h3>
+      <ul>
+        <li>SPR&ouml;UT is a wholefood grocery. We don't sell supplements, natural remedies, or products marketed primarily on health claims.</li>
+        <li>The range is plant-based. We don't stock animal products. Products with 'may contain traces of milk' or similar allergen warnings are considered case by case.</li>
+        <li>Staples come first. Over two-thirds of the range should be unprocessed or minimally processed ingredients for cooking from scratch: grains, pulses, flours, oils, dried fruit, nuts, seeds, canned goods, pasta, rice, oats. Specialist and convenience lines come after the staple base is solid.</li>
+        <li>We benchmark prices against supermarkets. The aim is for a customer to do most of their weekly shop with us at prices competitive with the multiples.</li>
+        <li>We prefer organic, Fairtrade, and co-operatively or independently owned suppliers. Where a large multinational owns a brand, we look for an independent alternative first. If none exists, we make a case-by-case decision.</li>
+        <li>We follow the evidence on nutrition, not food trends. Where a product's marketing is built around health claims, that's usually a sign it doesn't belong here.</li>
+      </ul>
+
+      <h3>3. Pricing strategy</h3>
+      <p>We check prices against supermarkets constantly. On staples where we compete directly (porridge, pasta, tinned tomatoes, cooking oil), we match or beat supermarket prices. On specialist or unique lines with no direct supermarket comparison, standard mark-ups apply.</p>
+      <p>The sales mix matters. A range of squeezed staples and higher-margin specialist lines, balanced together, is how we stay competitive and financially viable. No product lives in isolation from the rest of the range. Shelf space has a cost: a product that needs a large margin squeeze and occupies significant space for low returns should be questioned, unless it's a core staple.</p>
+
+      <h3>4. Technical standards and red lines</h3>
+
+      <h4>Wholefood priority</h4>
+      <p>Unrefined over refined where there's a practical choice: brown rice over white, wholemeal flour over plain, whole fruit over juice. We do stock some refined staples (white pasta, white rice) because they're what people cook with, and cutting them out weakens the weekly-shop offer. The default is whole and unrefined.</p>
+
+      <h4>Sugar</h4>
+      <p>Cane sugar in a product should be organic or Fairtrade. UK sugar beet is not acceptable: it's a chemically intensive crop with a near-monopoly supply chain. We stock the version with the lowest sugar content in its category. Products containing free sugars are noted at shelf level.</p>
+      <p>For traditional or functional uses (jam, baked beans, chutneys), added sugar is accepted where the product wouldn't work without it. All free sugars have essentially the same effect on the body regardless of source. We don't treat date syrup, agave, or rice syrup as preferable to cane sugar. We aim for the lowest amount possible, whatever the source.</p>
+
+      <div class="nutshell">
+        <h4>Red lines &mdash; non-negotiable</h4>
+        <ul>
+          <li><strong>Animal products.</strong> No products derived from animals. 'May contain' allergen traces considered case by case.</li>
+          <li><strong>Rapeseed oil.</strong> Organic only, in the shop and in the kitchen. Where stocked as a standalone product, cold-pressed only.</li>
+          <li><strong>Palm oil.</strong> Raw palm requires RSPO Segregated or Organic certification. Palm derivatives require RSPO membership at minimum.</li>
+          <li><strong>Artificial flavourings.</strong> Not accepted in any product. Natural flavourings only acceptable in certified organic products.</li>
+          <li><strong>Additives.</strong> No maltodextrin, MSG, or hydrolysed vegetable protein (HVP).</li>
+          <li><strong>Synthetic perfumes.</strong> Not acceptable in household or bodycare products. Fragrance sources must be clearly identified: 'lavender oil', not 'parfum'.</li>
+          <li><strong>Multinational ownership.</strong> Products owned by large multinationals are reviewed carefully. If an independent can fill the same need, we choose the independent. If a brand we stock is bought out, it goes under review.</li>
+        </ul>
+      </div>
+
+      <h3>5. Buying checklist</h3>
+      <ul class="checklist">
+        <li>Is there a gap in the range that this product fills?</li>
+        <li>Who owns the producer? Co-op, social enterprise, or independent preferred. If multinational, is there genuinely no independent alternative?</li>
+        <li>Does it pass all red lines? If not, stop here.</li>
+        <li>Sugar: is the cane sugar organic or Fairtrade? Is this the lowest-sugar version available in its category?</li>
+        <li>Oils: if it contains rapeseed as an ingredient, is it certified organic? If rapeseed oil is the product itself, is it cold-pressed and certified organic?</li>
+        <li>Flavourings: if 'natural flavouring' appears on the label, is the product certified organic?</li>
+        <li>Can we price it competitively against supermarkets?</li>
+        <li>Does the margin work within the sales mix, or does it need a squeeze we can absorb?</li>
+        <li>Is the handling straightforward, or will it drain worker time disproportionately to its return?</li>
+        <li>Does shelf space make sense for what the product returns?</li>
+      </ul>
+
+      <h3>6. Scoring system</h3>
+      <p>A product must pass all red lines before scoring. The scoring system helps the buying team compare and prioritise candidates. It doesn't replace judgement. Three dimensions, each scored 1 to 5. Maximum total: 15 points.</p>
+
+      <h4>Score 1 &mdash; wholefood and technical alignment</h4>
+      <p>How well does the product align with our wholefood and ingredient standards?</p>
+
+      <h4>Score 2 &mdash; sourcing and ethics</h4>
+      <p>How good is the supply chain, producer ownership, and environmental picture?</p>
+
+      <h4>Score 3 &mdash; operational efficiency</h4>
+      <p>How does the product perform on handling time and margin-to-space return?</p>
+
+      <div class="nutshell">
+        <h4>Interpreting the total</h4>
+        <ul>
+          <li><strong>13&ndash;15: Yes.</strong> High priority for shelf space.</li>
+          <li><strong>9&ndash;12: Yes / pending.</strong> Acceptable if it fills a specific gap or satisfies a specific customer need.</li>
+          <li><strong>Below 9: No.</strong></li>
+        </ul>
+        <p style="margin-top:10px; font-size:13.5px; color:var(--text-muted);">The margin percentage is recorded alongside the score but doesn't determine it. We squeeze where necessary on high-scoring staples and recover margin on high-scoring specialist lines.</p>
+      </div>
+
+      <h3>7. Surplus produce and the kitchen</h3>
+      <p>Fresh produce that doesn't sell through, or isn't in a saleable condition on the shop floor, can go to the kitchen for use in prepared foods. It's not a separate buying category. No product that fails the buying criteria goes to the kitchen. Everything that leaves the shop, whether from a shelf or as part of a prepared dish, is a SPR&ouml;UT product and must be made from ingredients that meet our standards.</p>
+    </section>
+
+    <!-- 4. PREMISES -->
+    <section class="section" id="premises">
+      <div class="section-number">Chapter 4</div>
+      <h2>Premises</h2>
+
+      <p>Property has not become any cheaper or easier to acquire. Finding the right site will be an increasingly challenging task. It is impossible to overstate the importance of the right premises in the right neighbourhood. If you want to use the Unicorn trading model you really need to find a suitable site.</p>
+
+      <h3>Choosing your neighbourhood</h3>
+      <ul>
+        <li>Majority of market within reasonable travelling distance (two miles)</li>
+        <li>Close proximity to district or town centre</li>
+        <li>Along well-travelled roads, e.g., commuter routes</li>
+        <li>On bicycle, bus or pedestrian routes</li>
+        <li>Availability of buildings with suitable car parking and lorry access</li>
+        <li>Warehouse space of at least 400m&sup2;</li>
+        <li>Population density of around 500,000 people within 20 miles</li>
+      </ul>
+
+      <p>Economically diverse areas are good. By building a following, you can help shape a neighbourhood and strengthen its community, although it may take time.</p>
+
+      <h3>Finding a site</h3>
+      <p>Once you choose an area, the right premises may prove trickier to find. Search on foot or by bicycle for 'to let' and 'going out of business' signs. Speak to shop owners and estate agents. Evaluate each site closely for parking and access (for lorries and customers), and the proximity of residential neighbourhoods and other shops.</p>
+
+      <h4>Premises parameters</h4>
+      <ul>
+        <li>Building size above 400m&sup2;</li>
+        <li>Around 150&ndash;200m&sup2; retail (approximately half the site)</li>
+        <li>Most of the remainder as storage and a small packing space</li>
+        <li>Retail and storage space, including cold store, on the ground floor</li>
+        <li>Adjacent car park</li>
+        <li>Good visibility and easy foot access</li>
+        <li>A forklift-friendly building is essential to the pallet-based purchasing model</li>
+        <li>Access by articulated lorries</li>
+      </ul>
+
+      <h3>Leasing</h3>
+      <p>Purchasing a building provides security if cash is available, but leasing is usually the most suitable approach for new shops. However, leases may take the better part of a year to arrange. Research standard rents in your neighbourhood and speak to other shopkeepers about rates.</p>
+
+      <p>Try obtaining a rent-free period, break clause, rent reviews (up or down), and repair provisions. Hire a sympathetic surveyor to negotiate on your behalf; these expenses may save you much more in the long term.</p>
+
+      <h3>Leicester premises: 2026 context</h3>
+
+      <p>Industrial and trade counter units are the right type of property for this model — not high street retail. In Leicester, these typically run at £6&ndash;12 per sq ft per year outside the city centre. A well-specified unit with lorry access, car parking, and partial fit-out already in place will sit at the higher end of that range. The working figure used in SPR&ouml;UT's financial model is £40,000/yr (around £12/sq ft for a 305m&sup2; unit), which reflects a realistic spec rather than the cheapest available space.</p>
+
+      <p>The right neighbourhoods to consider in Leicester are those with good residential density within cycling distance, reasonable bus links, and available off-street parking. Areas along major arterial routes — away from the high street premium but accessible — are the target. Abbey Lane in the north of the city is one example of the type: an industrial/trade unit with level loading, rear yard, car parking, and internal height suitable for forklift and pallet operations.</p>
+
+      <p>On business rates: a unit with a rateable value below £12,000 qualifies for full Small Business Rate Relief — effectively zero rates. An off-centre Leicester industrial unit at 300m&sup2; is likely to fall in this range. Check the Valuation Office Agency (VOA) rateable value for any unit before signing a lease, as this directly affects your annual cost base. From April 2026, a new lower multiplier applies to retail premises under £500,000 rateable value, which further reduces the rates burden for qualifying shops.</p>
+
+      <div class="callout">
+        <p><strong>What to look for in a Leicester unit:</strong> steel frame construction, level concrete floor, rear-loading access for articulated lorries, demised car parking to the front, internal height of at least 5m (6m+ preferred for racking), and a rateable value you can verify before committing. Trade counter units that have been partially fitted out — reception area, WCs, office already in place — save meaningful money on fit-out.</p>
+      </div>
+    </section>
+
+    <!-- 5. PRACTICAL RESOURCES -->
+    <section class="section" id="practical">
+      <div class="section-number">Chapter 5</div>
+      <h2>Practical resources</h2>
+
+      <h3>Fitting out and equipment</h3>
+      <p>With a mix of frugality, functionality, durability and aesthetics, you can achieve a relaxed place of commerce without trashing your budget. Employ known or recommended contractors where possible.</p>
+
+      <h4>Functional points</h4>
+      <ul>
+        <li>Level concrete floors that pallet trucks can negotiate</li>
+        <li>Shop and warehouse temperature below 20&deg;C all year</li>
+        <li>Security: structure, shutters, bars, gates, alarms</li>
+        <li>Electronic tills and conveyors (to get customers through quickly)</li>
+        <li>Aisles big enough for trolleys to pass each other</li>
+        <li>Good visibility in shop (for security and overview)</li>
+      </ul>
+
+      <h4>Basic equipment for a 300&ndash;400m&sup2; shop (2026 prices)</h4>
+
+      <p>Buy secondhand wherever possible for racking, fridges, pallet trucks, and stainless steel. Equipment is not as expensive as buildings and fit-out, but every saving at this stage protects your working capital.</p>
+
+      <table class="score-table">
+        <thead>
+          <tr><th>Item</th><th>2026 estimate</th><th>Notes</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>2&times; pallet trucks</td><td>£800&ndash;£1,200</td><td>Secondhand available from £300 each</td></tr>
+          <tr><td>Forklift, min 1 tonne lift</td><td>£150&ndash;£300/month</td><td>Lease for reliability; don't buy new</td></tr>
+          <tr><td>Store racking</td><td>£3,000&ndash;£8,000</td><td>Secondhand; check load ratings</td></tr>
+          <tr><td>Cold store (10&ndash;15m&sup2;, installed)</td><td>£6,000&ndash;£12,000</td><td>Modular units at the lower end; external heat exchanger essential</td></tr>
+          <tr><td>Display fridge run (3m+)</td><td>£5,000&ndash;£10,000</td><td>Secondhand units available; external exchanger preferred</td></tr>
+          <tr><td>EPOS tills (2&ndash;3 units with scales)</td><td>£8,000&ndash;£15,000</td><td>Cloud-based systems now cheaper and more flexible than legacy EPOS</td></tr>
+          <tr><td>Card machines per till</td><td>£200&ndash;£400 each</td><td>Or use integrated payments via EPOS supplier</td></tr>
+          <tr><td>Shopping trolleys and baskets</td><td>£2,000&ndash;£3,000</td><td>Secondhand from closing retailers</td></tr>
+          <tr><td>Security alarm (police response)</td><td>£3,000&ndash;£5,000</td><td>Including installation</td></tr>
+          <tr><td>IT, bookkeeping software, backup</td><td>£2,000&ndash;£3,000</td><td>Cloud accounting (e.g. Xero) keeps ongoing costs low</td></tr>
+        </tbody>
+      </table>
+
+      <p>Rough equipment total (excluding fit-out): <strong>£35,000&ndash;£60,000</strong>, depending on how much secondhand equipment you source. Annual refrigeration maintenance: budget £300&ndash;£600.</p>
+
+      <h3>Finances</h3>
+      <p>Many finance opportunities exist for fledgling co-operatives, depending on legal structure and profit-sharing rules. A mix of financing options allows flexibility in future business development.</p>
+
+      <h4>Loanstock</h4>
+      <p>A registered Co-operative and Community Benefit Society may issue loanstock: fixed-term bonds that enable the co-operative to raise money from the public without relinquishing control. Start with relatives and friends, and build a network of local sympathisers. Offer bonds for a fixed period of time, at one or a choice of interest rates (e.g., 0&ndash;6%). Community share offer platforms such as Ethex and Crowdfunder can help reach a wider audience once you have a prospectus ready.</p>
+
+      <h4>Bank loans</h4>
+      <p>Initial seed capital from founders encourages other lenders to consider a loan. Ten-year or longer loans provide time to build a business; repayment over five years can be too steep. Banks are unlikely to offer more than 70% of start-up costs. Lenders worth approaching include Triodos Bank, the Co-operative Bank, Unity Trust Bank, and Co-operative &amp; Community Finance (the lending body founded by Roger Sawtell in the 1970s, specifically for co-operatives).</p>
+
+      <h4>How much do you need? (2026)</h4>
+      <p>Unicorn started with £45,000 in 1996. The guide's previous estimate of £200,000&ndash;£250,000 reflected a Unicorn-scale operation in 2022. For a Leicester-scale operation of around 300m&sup2; with a basic fit-out carried out largely in-house, a realistic 2026 range is:</p>
+
+      <table class="mark-table">
+        <thead>
+          <tr><th>Item</th><th>Estimate</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Fit-out (basic, largely DIY)</td><td>£40,000&ndash;£60,000</td></tr>
+          <tr><td>Equipment</td><td>£35,000&ndash;£55,000</td></tr>
+          <tr><td>Opening stock</td><td>£15,000&ndash;£25,000</td></tr>
+          <tr><td>Working capital (6-month cash buffer)</td><td>£30,000&ndash;£50,000</td></tr>
+          <tr><td>Legal, registration, professional fees</td><td>£5,000&ndash;£10,000</td></tr>
+          <tr><td><strong>Total</strong></td><td><strong>£125,000&ndash;£200,000</strong></td></tr>
+        </tbody>
+      </table>
+
+      <p>The midpoint is around £160,000. Much depends on how much of the fit-out you can do yourselves, and how much secondhand equipment you can source. The working capital buffer is not optional — businesses fail because they run out of cash, not because the model is wrong.</p>
+
+      <h4>Wages and employer costs (April 2026)</h4>
+      <p>The National Living Wage from April 2026 is <strong>£12.71/hr</strong>. Employer National Insurance is <strong>15%</strong> on earnings above £5,000/yr per employee (threshold reduced from April 2025). These are material costs for any wage-heavy business. For a small team of four workers at 35 hours per week, total employment costs including NI will exceed £130,000/yr at NLW rates before any premium above minimum wage is added.</p>
+      <p>The Employment Allowance increased to £10,500/yr from April 2025, which offsets some NI cost for smaller employers. Factor this into your financial model.</p>
+
+      <h4>Energy costs (2026)</h4>
+      <p>Electricity for a small commercial premises in the East Midlands runs at approximately <strong>22&ndash;24p/kWh</strong> on a fixed contract — one of the cheaper DNO regions in the UK. Refrigeration runs 24 hours a day; budget <strong>£8,000&ndash;£14,000/yr</strong> for electricity depending on the efficiency of your cold store and display fridges. External heat exchangers, as recommended in the Unicorn model, reduce running costs significantly. Gas for heating: budget <strong>£2,000&ndash;£4,000/yr</strong>. Combined energy: working figure of <strong>£10,000&ndash;£18,000/yr</strong>.</p>
+
+      <h4>Break-even planning</h4>
+      <p>Unicorn's eighteen-month break-even point proved a little cautious, but the journey there tested their nerves. Financial sources other than sales revenue need to cover costs until that point. Plan conservatively: model eighteen months to break-even and ensure you have cash to cover it. Businesses frequently fail not because they are unprofitable in principle, but because they run out of cash to pay suppliers or wages before they get there.</p>
+
+      <h3>Risk management</h3>
+      <p>Every business should carry out an annual risk assessment. To keep hours in line with weekly and seasonal sales patterns, Unicorn engages casual workers for around 10% of required labour. In case of a downturn, casual hours may be reduced with the least possible adverse effects on staff and the business.</p>
+    </section>
+
+    <!-- 6. PROCEDURES AND PRICING -->
+    <section class="section" id="procedures">
+      <div class="section-number">Chapter 6</div>
+      <h2>Procedures and pricing</h2>
+
+      <h3>Trading: key points</h3>
+      <ul>
+        <li>Price rules. Followed closely by freshness, quality and ethics</li>
+        <li>Buy as direct as possible</li>
+        <li>Buy in bulk, enabled by correct warehouse-to-shop ratio (1:1)</li>
+        <li>Check competition constantly and price with margins as a guide</li>
+        <li>Trade honestly, pay on time and build good relations with suppliers</li>
+        <li>Ensure an accessible location and friendly staff</li>
+        <li>Build a consistent, broad range that can satisfy the bulk of a weekly shop</li>
+        <li>Be clear why you trade; make decisions based on that and let customers know</li>
+      </ul>
+
+      <h4>Price rules</h4>
+      <p>Every recession renews the importance of the good value model. Unicorn uses economy of scale and buys as near to source as possible to achieve market prices, meaning the same or better than supermarket competition. Price checking is second nature in grocery.</p>
+
+      <h4>Buy in bulk</h4>
+      <p>A good negotiator should use 'trade prices' as a reference point, not the real price. These reductions relate most critically to volume. In the early days, Unicorn didn't have anything like its current selection; they wheeled pallets of one type of orange juice or baked beans straight onto the shop floor. Focus on basics, keep prices low, and offer a broad range to satisfy most of a weekly shop.</p>
+
+      <h4>Pay on time</h4>
+      <p>Timely payment provides the basis of a trading reputation. A supplier may offer further reductions off the trade price for prompt payment, e.g., within one week.</p>
+
+      <h4>Negotiate</h4>
+      <p>Telephones remain a great negotiation tool. Homework beforehand makes for confident negotiations. Initial resistance can be frustrating, but if you need the product, persevere. Do not take written terms or stated discounts at face value; these are a starting point.</p>
+
+      <h3>Pricing</h3>
+      <p>Standard margins are only useful for items that cannot be found elsewhere. Unicorn's concept of 'good value' pricing also takes into account supermarket prices, prices for similar products on your shelves, and the quality of the product.</p>
+      <p>Where products are directly comparable to competitors, Unicorn's buying team squeezes margins or negotiates better deals rather than losing sales. Research 'known-value items' (products people expect to buy at a certain price) and price these especially carefully. Lots of expensive goods affect customer perception of the whole shop.</p>
+
+      <h3>Veg</h3>
+      <p>Unicorn's all-organic fresh fruit and vegetable section is one of its primary selling points, cultivated over years of experience with the world of growing. Find growers through certifying bodies, grower events, trade magazines, or by visiting farm shops and box schemes.</p>
+
+      <p>Regarding the carbon footprint of the fruit and vegetable section: local is not always better. Gas-heated tunnels in the UK cause their own environmental damage. Where possible, Unicorn favours grower co-operatives, partly because more money ends up with the grower.</p>
+
+      <h3>Packing</h3>
+      <p>Like Daily Bread, Unicorn relies on the system of repacking bulk foods on site into small retail-sized bags. Unicorn's packed goods range represents the core offer of basic cooking ingredients, and provides a basis for the brand: basic, wholesome, informative, good value. Packing also provides a much-sought grocery opportunity for 'added value', turning relatively low-cost commodities into higher-value products.</p>
+
+      <p>Advantages to on-site packing: it adds value, provides local wages, helps create brand identity, and acts as a labour buffer during quieter periods on the shop floor. These advantages must be balanced against the management of another specialist area that requires expertise, equipment, training and commitment.</p>
+
+      <p>Unicorn closely monitors the packing rate to ensure it remains around 40 bags per hour for margins to be profitable.</p>
+    </section>
+
+    <!-- 7. PROMOTION -->
+    <section class="section" id="promotion">
+      <div class="section-number">Chapter 7</div>
+      <h2>Promotion and publicity</h2>
+
+      <p>With a great product (tasty, wholesome food at affordable prices) and respect for customers, there is no need for a hard sell. A recommendation from a friend is infinitely more effective than an advert, and Unicorn has largely relied on word of mouth to establish and grow its reputation.</p>
+
+      <h3>A presence in the community</h3>
+      <p>Door-to-door flyers can be useful, especially in the early days, but in decades of trading Unicorn has spent little on conventional advertising. A branded reusable bag on the arm of a friend, or tasting food at a community event, carries more weight than a poster or an advert.</p>
+
+      <h3>Social media</h3>
+      <p>Social media content should reflect people, produce and principles. Unicorn uses it to communicate practical information about the shop, help customers get the most from the offer, deepen understanding about products and how they trade, and support like-minded initiatives.</p>
+      <p>Unicorn's social media channels are not primarily used as direct sales tools. Special offers and promotions are much more effective at point of sale. Too many 'sales' messages on a social media feed can feel very corporate and annoying.</p>
+
+      <h3>Press</h3>
+      <p>Unicorn has benefited from coverage in the BBC, Guardian, Manchester Evening News and others. The message remains consistent and does not make claims that cannot be substantiated with trading practices. Only seek press attention when you have something valuable to say. Be prepared for new customers after such attention; nothing is worse than spoiling a good recommendation or disappointing a first-time shopper.</p>
+
+      <h3>Customer feedback</h3>
+      <p>Rely on customer feedback (in person, on social media, and via surveys) to monitor reputation and public perceptions. Knowing your customer is as important as knowing your offer. 'Look after your customer or someone else will.'</p>
+
+      <h3>Ground rules</h3>
+      <p>Never preach or bombard people with overcomplicated information. Use humour, colourful displays, thoughtful price comparisons and practical suggestions. Stay positive and focus on what you do, not what you don't. On hotly contested debates around food, nutrition and ethics, stay on topic and avoid inaccurate claims that damage trust.</p>
+
+      <h3>First impressions</h3>
+      <p>With new customers visiting the shop each week, a good first impression is critical: a welcoming entrance, fresh and bountiful-looking fruit and veg, good lighting and smells, fully stocked shelves, competitive prices, a clean shop and small queues.</p>
+    </section>
+
+    <!-- 8. POLICIES AND PRINCIPLES -->
+    <section class="section" id="policies">
+      <div class="section-number">Chapter 8</div>
+      <h2>Policies and principles</h2>
+
+      <h3>Principles of purpose</h3>
+      <p>Unicorn is based on a set of founding Principles of Purpose, originally derived from the Daily Bread Co-operative. This document has always guided the direction of the business, informed decisions, and clearly set out intentions. Many companies discredit their own mission statements by changing focus or never intending to achieve their stated aims. A good set of principles says only what you intend to carry out, and what you will stick to through thick and thin.</p>
+
+      <div class="nutshell">
+        <h4>Unicorn's five principles of purpose</h4>
+        <ul>
+          <li><strong>1. Secure employment.</strong> We aim to provide secure employment for our members. We seek above all to provide a livelihood for ourselves with some control over our working environment.</li>
+          <li><strong>2. Equal opportunities.</strong> We believe that all should have an equal opportunity to undertake paid work. The ability to carry out a minimum of 20 hours of useful work per week entitles a worker to apply for membership.</li>
+          <li><strong>3. Wholesome healthy consumption.</strong> We aim to trade in wholesome foodstuffs and household goods of non-animal origin. We strive to sell products of organic standard and maximum nutritional value whenever we can find or generate a market.</li>
+          <li><strong>4. Fair and sustainable trade.</strong> We aim to trade in a manner which supports a sustainable world environment and economy. We trade preferentially in products which follow the 'Fair Trade' ethos. 4% of our wage costs are contributed to a global solidarity fund.</li>
+          <li><strong>5. Solidarity in co-operation.</strong> We aim to support like-minded ventures, co-operatives or otherwise. 1% of our wage costs are contributed to a UK fund to support projects which share our vision of community and society.</li>
+        </ul>
+      </div>
+
+      <h3>Registering a worker co-operative</h3>
+      <p>Unicorn Grocery Ltd is both a worker co-operative and a Registered Society under the Co-operative and Community Benefit Societies Act. The legal structure is not critical, although the model chosen reinforces principles such as ownership by participants, limited liability, an asset lock, a social agenda, and a commitment to wider society.</p>
+
+      <h3>Why a worker co-operative?</h3>
+      <p>As directors, all employees work for the benefit of the business and engage fully in its successes and failures. Every member has an insight into business needs, operations and finances. Co-operative working has its challenges, but with pride in the shop and the ideas of dozens of fully engaged members, a co-operative can stay a step ahead of the competition.</p>
+
+      <h4>Some advantages of co-operative working</h4>
+      <ul>
+        <li>Motivation and commitment to see your business thrive</li>
+        <li>Mutual support and solidarity</li>
+        <li>Opportunities to learn and develop ideas collectively</li>
+        <li>Satisfaction and pride in being part of a business that puts people before profit</li>
+        <li>Meaningful work</li>
+      </ul>
+
+      <h4>Some challenges of co-operative working</h4>
+      <ul>
+        <li>Maintaining a sense of ownership and pride (saying 'we' not 'they')</li>
+        <li>Equitable level of commitment (who stays late?)</li>
+        <li>Structure as membership increases</li>
+        <li>Raising and maintaining a capital-intensive business</li>
+        <li>Career development and retention of long-serving staff</li>
+        <li>Providing a living wage for the local area</li>
+        <li>Balancing the conventional workplace tendency towards hierarchy with the ability to value a wide range of skills</li>
+      </ul>
+
+      <h3>Governance and co-operative structure</h3>
+      <p>For the first eight years, Unicorn's membership did not exceed fifteen members: a family-sized group that enabled high levels of transparency, active involvement and efficient communication. As the business grew, a more devolved structure became necessary.</p>
+
+      <h4>Flat pay</h4>
+      <p>A diverse range of skills is vital in any co-operative, and Unicorn does not value certain types of work (e.g., administrative) over others (e.g., manual). By offering a flat rate of pay, Unicorn encourages an equal sense of ownership and worth in all members.</p>
+
+      <h4>Consensus decision-making</h4>
+      <p>From four members to over 70, Unicorn has always made large decisions as a collective. The process of reaching consensus, through clear information in advance, questions, discussion, amendments, objections and workshops, leads to strong, well-founded decisions upheld by a unified and active membership.</p>
+
+      <div class="callout">
+        <p>Legal and organisational structures matter less than principles, honesty and a good offer. While many Unicorn customers only vaguely understand the organisation, most possess a clear idea of what they expect from it in trading and ethics.</p>
+      </div>
+    </section>
+
+    <!-- CONCLUSION -->
+    <section class="section" id="conclusion">
+      <div class="section-number">Conclusion</div>
+      <h2>The key is a good offer</h2>
+
+      <p>The grocery industry remains characterised by the increasing presence of a few multiples. Dwindling choices on the high street will, to some extent, get customers interested in an alternative, but a new grocery cannot rely on this trend alone.</p>
+
+      <p>Despite the multiples' unrivalled buying power, there is still a gap in the market for a business strategy based on strong ethics, direct buying, minimal handling, on-site packing and all-round honest trading. A lot of what Unicorn does differs little from the day-to-day running of any conventional grocery store: stacking beans, sweeping floors, and so on. No shopkeeper can escape the realities of running a business, or difficult decisions and compromises.</p>
+
+      <p>Hard work and boring tasks are not banished when a co-operative is formed, but the rewards that come with co-operative working, looking after a business you have a real stake in, as close to your principles as possible, make it all worthwhile.</p>
+
+      <p>Unicorn has proved that a worker-owned business with values can compete with national chains and provide a genuine alternative to the supermarket. And not despite its principles, but because of them.</p>
+
+      <p>The mechanics of selling groceries remain achievable. There is room for a Unicorn-type store in every city in the UK, at least. It is up to us to grab hold of food supply as nineteenth century co-operators did, both out of a need for food security and a belief in social justice and stable, sustainable economies. We hope this guide helps you to do so.</p>
+    </section>
+
+    <!-- Copyright -->
+    <div class="copyright">
+      <p>This work is licensed under a <a href="https://creativecommons.org/licenses/by-nc-sa/2.0/uk/" target="_blank" rel="noopener" style="color:var(--accent);">Creative Commons Attribution-NonCommercial-ShareAlike 2.0 UK licence</a>. Unicorn publish it in the hope that others will build on and develop it, and make such improvements available to others on the same terms.</p>
+      <p style="margin-top:8px;">The original guide and further resources are on the <a href="https://www.unicorn-grocery.coop/about-us/grow-your-own-grocery/" target="_blank" rel="noopener" style="color:var(--accent);">Unicorn Grocery website</a>.</p>
+      <p style="margin-top:8px;">Shared by SPR&ouml;UT with Unicorn's knowledge.</p>
+    </div>
+
+  </main>
+</div>
+
+<button class="menu-toggle" id="menuToggle" onclick="toggleSidebar()" aria-label="Open menu">&#9776;</button>
+
+<script>
+  // Mobile sidebar
+  function toggleSidebar() {
+    document.getElementById('sidebar').classList.toggle('open');
+    document.getElementById('overlay').classList.toggle('open');
+  }
+  function closeSidebar() {
+    document.getElementById('sidebar').classList.remove('open');
+    document.getElementById('overlay').classList.remove('open');
+  }
+
+  // Active nav highlighting on scroll
+  const sections = document.querySelectorAll('section[id], div[id="podcast"]');
+  const navLinks = document.querySelectorAll('.sidebar nav a');
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        navLinks.forEach(link => {
+          link.classList.remove('active');
+          if (link.getAttribute('href') === '#' + entry.target.id) {
+            link.classList.add('active');
+          }
+        });
+      }
+    });
+  }, { rootMargin: '-20% 0px -70% 0px' });
+
+  sections.forEach(section => observer.observe(section));
+
+  // Close sidebar on nav click (mobile)
+  navLinks.forEach(link => {
+    link.addEventListener('click', () => {
+      if (window.innerWidth <= 860) closeSidebar();
+    });
+  });
+</script>
+</body>
+</html>
