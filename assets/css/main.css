@@ -1374,6 +1374,9 @@ h1, h2, h3, h4 {
     font-size: 16px;
     padding-top: 0;
   }
+  .c-timeline.sp-timeline-refined .c-timeline-row > div:not(.c-when) {
+    grid-column: 2;
+  }
 }
 
 
@@ -1400,6 +1403,7 @@ h1, h2, h3, h4 {
 @media (max-width: 720px) {
   .c-timeline.sp-faq .c-timeline-row { grid-template-columns: 18px 1fr; }
   .c-timeline.sp-faq .c-when { grid-column: 2; font-size: 20px; }
+  .c-timeline.sp-faq .c-timeline-row > div:not(.c-when) { grid-column: 2; }
 }
 
 
@@ -2461,6 +2465,74 @@ body.kitchen-mode .method-step-row .step-number {
   .ticker {
     padding: 16px 16px;
     gap: 6px 12px;
+  }
+}
+
+@media (max-width: 768px) {
+  /* Newsletter stacking & horizontal spacing */
+  .c-news {
+    grid-template-columns: 1fr;
+    padding: 40px 24px;
+    gap: 28px;
+    margin: 32px 0 0;
+  }
+  .c-news h2 {
+    font-size: clamp(28px, 4vw, 36px);
+  }
+  .c-news-form .c-row {
+    flex-direction: column;
+    gap: 8px;
+  }
+  .c-news-form input {
+    width: 100%;
+  }
+  .c-news-form button {
+    width: 100%;
+  }
+
+  /* Footer columns stacking */
+  .c-ftr-inner {
+    grid-template-columns: 1fr;
+    gap: 36px;
+  }
+  .c-ftr {
+    padding: 48px 24px 32px;
+  }
+  .c-ftr-bottom {
+    flex-direction: column;
+    gap: 12px;
+    align-items: flex-start;
+  }
+}
+
+@media (max-width: 640px) {
+  /* Navbar stacking */
+  .site-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    padding-bottom: 12px;
+  }
+  .site-logo {
+    width: 100%;
+    justify-content: center;
+    padding: 12px 24px;
+    font-size: 22px;
+  }
+  .site-nav {
+    width: 100%;
+    justify-content: center;
+    padding: 0 10px;
+  }
+  .site-nav ul {
+    gap: 2px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .site-nav ul li a {
+    padding: 6px 10px;
+    font-size: 11px;
   }
 }
 
