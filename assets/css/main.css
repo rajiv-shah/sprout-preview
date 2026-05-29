@@ -477,7 +477,7 @@ h1, h2, h3, h4 {
   max-width: 1240px;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: 1.4fr 1fr 1fr 1fr;
+  grid-template-columns: 1.4fr 1fr 1fr;
   gap: 48px;
 }
 
@@ -1420,13 +1420,23 @@ h1, h2, h3, h4 {
   background: var(--leaf-d);
   margin-bottom: 22px;
 }
-.sp-founder__photo > img {
+.sp-founder__photo > figure {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+}
+.sp-founder__photo > img,
+.sp-founder__photo figure img {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
   display: block;
+  max-width: none;
 }
 .sp-founder__photo--earth { background: linear-gradient(135deg, #5e421f 0%, #2a1b08 100%); }
 .sp-founder__photo--ochre { background: linear-gradient(135deg, #8c6420 0%, #3e2c0a 100%); }
@@ -1440,8 +1450,7 @@ h1, h2, h3, h4 {
     transparent 6px 12px
   );
 }
-.sp-founder__photo:has(> img)::after,
-.sp-founder__photo:has(> img) > .sp-founder__photo-lbl { display: none; }
+.sp-founder__photo:has(img)::after { display: none; }
 
 .sp-founder__photo-lbl {
   position: absolute;
@@ -1787,4 +1796,672 @@ h1, h2, h3, h4 {
 /* ==========================================================================
    END v5 ADDITIONS
    ========================================================================== */
+
+
+/* ==========================================================================
+   INTERACTIVE PRODUCT SEARCH & RECIPES v6 ADDITIONS (Claude Design)
+   ========================================================================== */
+
+/* --- A. WHAT WE SELL PORTAL --- */
+.what-we-sell-search-banner {
+  background: var(--ochre);
+  color: var(--ink);
+  padding: 32px 36px;
+  border-radius: 4px;
+  border: 1px solid rgba(26,26,20,0.15);
+  margin: 32px 0 48px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+}
+.search-banner-title {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  color: var(--tomato);
+  margin-bottom: 6px;
+}
+.search-banner-desc {
+  font-family: var(--slab);
+  font-size: clamp(22px, 3vw, 30px);
+  line-height: 1.15;
+  margin-bottom: 20px;
+}
+.search-banner-input-wrapper {
+  position: relative;
+  max-width: 580px;
+}
+.search-banner-input-wrapper input {
+  width: 100%;
+  padding: 14px 48px 14px 18px;
+  background: var(--cream);
+  color: var(--ink);
+  border: 1px solid rgba(26,26,20,0.25);
+  border-radius: 4px;
+  font-family: var(--grot);
+  font-size: 16px;
+  outline: none;
+}
+.search-banner-input-wrapper input:focus {
+  border-color: var(--leaf-d);
+  box-shadow: 0 0 0 3px rgba(31,50,20,0.12);
+}
+.search-banner-submit-btn {
+  position: absolute;
+  top: 50%;
+  right: 6px;
+  transform: translateY(-50%);
+  background: var(--leaf-d);
+  color: var(--cream);
+  border: none;
+  width: 36px;
+  height: 36px;
+  border-radius: 3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s;
+}
+.search-banner-submit-btn:hover {
+  background: var(--leaf);
+}
+
+.what-we-sell-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin-top: 24px;
+}
+.what-we-sell-card {
+  background: var(--cream);
+  border: 1px solid rgba(26,26,20,0.12);
+  border-radius: 4px;
+  overflow: hidden;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.22s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.22s ease;
+}
+.what-we-sell-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.05);
+}
+.card-img-container {
+  width: 100%;
+  aspect-ratio: 16/10;
+  overflow: hidden;
+  position: relative;
+}
+.card-img-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: flex-end;
+  padding: 16px;
+  position: relative;
+  overflow: hidden;
+}
+.card-img-placeholder::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.2) 100%);
+  z-index: 1;
+}
+.card-img-placeholder span {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: rgba(255,255,255,0.95);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  z-index: 2;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+}
+.tint-leaf { background: repeating-linear-gradient(135deg, #375925 0 14px, #263f1a 14px 28px); }
+.tint-ochre { background: repeating-linear-gradient(135deg, #ffc51a 0 14px, #e6a700 14px 28px); }
+.tint-tomato { background: repeating-linear-gradient(135deg, #d34b33 0 14px, #b23a23 14px 28px); }
+.tint-aubergine { background: repeating-linear-gradient(135deg, #572545 0 14px, #3d1a30 14px 28px); }
+.tint-earth { background: repeating-linear-gradient(135deg, #594c25 0 14px, #3f361a 14px 28px); }
+.tint-leaf-d { background: repeating-linear-gradient(135deg, #263e19 0 14px, #17260f 14px 28px); }
+
+.what-we-sell-card .card-body {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+.what-we-sell-card h3 {
+  font-size: 22px;
+  color: var(--leaf-d);
+  margin-bottom: 8px;
+}
+.what-we-sell-card p {
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--ink-soft);
+  margin-bottom: 20px;
+  flex-grow: 1;
+}
+.card-action-btn {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--tomato);
+  text-decoration: none;
+  letter-spacing: 0.06em;
+}
+.what-we-sell-card:hover .card-action-btn {
+  text-decoration: underline;
+}
+
+/* --- B. PRICES SEARCH TABLE --- */
+.prices-table-container {
+  background: var(--cream);
+  border: 1px solid rgba(26,26,20,0.15);
+  border-radius: 4px;
+  padding: 28px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+}
+.prices-controls-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+.entries-select-wrapper {
+  font-size: 13px;
+  color: var(--ink-soft);
+}
+.entries-select-wrapper select {
+  background: var(--paper);
+  border: 1px solid rgba(26,26,20,0.15);
+  padding: 4px 8px;
+  border-radius: 3px;
+  outline: none;
+  font-family: var(--mono);
+  font-weight: 700;
+  margin-right: 6px;
+}
+.search-input-wrapper input {
+  background: var(--paper);
+  border: 1px solid rgba(26,26,20,0.15);
+  padding: 6px 12px;
+  border-radius: 3px;
+  outline: none;
+  font-family: var(--grot);
+  font-size: 14px;
+  width: 220px;
+}
+.search-input-wrapper input:focus {
+  border-color: var(--leaf-d);
+  background: var(--cream);
+}
+.prices-responsive-table {
+  width: 100%;
+  overflow-x: auto;
+  border-bottom: 4px solid var(--ochre);
+}
+.prices-data-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+.prices-data-table th {
+  background: var(--leaf-d);
+  color: var(--cream);
+  padding: 14px 18px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  user-select: none;
+  cursor: pointer;
+  border-bottom: 3px solid var(--ochre);
+}
+.prices-data-table th:hover {
+  background: var(--leaf);
+}
+.sort-indicator {
+  display: inline-block;
+  margin-left: 4px;
+  font-size: 10px;
+  color: var(--ochre);
+}
+.prices-data-table td {
+  padding: 14px 18px;
+  border-bottom: 1px solid rgba(26,26,20,0.08);
+  font-size: 15px;
+  color: var(--ink);
+}
+.prices-data-table tr {
+  transition: background 0.15s;
+}
+.prices-data-table tr:hover {
+  background: var(--paper-2);
+}
+.prices-data-table tr:nth-child(even) {
+  background: rgba(239,233,216,0.25);
+}
+.prices-data-table tr:nth-child(even):hover {
+  background: var(--paper-2);
+}
+.prices-data-table td.price-col {
+  font-weight: 700;
+  color: var(--leaf-d);
+  background: color-mix(in oklab, var(--ochre) 15%, var(--cream));
+  border-left: 1px dashed rgba(26,26,20,0.08);
+}
+.prices-highlight {
+  background-color: var(--ochre);
+  color: var(--ink);
+  font-weight: bold;
+  padding: 0 2px;
+  border-radius: 2px;
+}
+.prices-footer-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 24px;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+.prices-counter {
+  font-size: 12px;
+  color: var(--ink-soft);
+}
+.prices-pagination {
+  display: flex;
+  gap: 6px;
+}
+.pagination-btn {
+  padding: 6px 12px;
+  border: 1px solid rgba(26,26,20,0.15);
+  background: var(--paper);
+  color: var(--ink-soft);
+  border-radius: 3px;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+}
+.pagination-btn:hover {
+  background: var(--paper-2);
+  color: var(--ink);
+}
+.pagination-btn.active {
+  background: var(--leaf-d);
+  color: var(--cream);
+  border-color: var(--leaf-d);
+}
+.pagination-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* --- C. RECIPE WORKSPACE --- */
+.recipe-card {
+  background: var(--cream);
+  border: 1px solid rgba(26,26,20,0.12);
+  border-radius: 4px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.22s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.22s ease;
+}
+.recipe-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+}
+.recipe-card .card-image-wrapper {
+  aspect-ratio: 4/3;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+}
+.recipe-card .card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.35s ease;
+}
+.recipe-card:hover .card-img {
+  transform: scale(1.02);
+}
+.recipe-card .card-tags-overlay {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+}
+.recipe-card .tag-pill {
+  font-family: var(--mono);
+  font-size: 9px;
+  font-weight: 700;
+  text-transform: uppercase;
+  background: var(--tomato);
+  color: var(--cream);
+  padding: 3px 8px;
+  border-radius: 2px;
+}
+.recipe-card .card-time-badge {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  background: rgba(252,248,236,0.92);
+  color: var(--ink);
+  font-size: 10px;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 2px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  border: 1px solid rgba(26,26,20,0.1);
+}
+.recipe-card .card-info {
+  padding: 16px;
+}
+.recipe-card .card-title {
+  font-size: 18px;
+  line-height: 1.25;
+}
+.recipe-card:hover .card-title a {
+  color: var(--tomato);
+}
+
+/* Ingredients checkboxes */
+.ing-checkbox-circle {
+  width: 16px;
+  height: 16px;
+  border: 2px solid var(--ink-soft);
+  border-radius: 3px;
+  display: inline-block;
+  position: relative;
+  flex-shrink: 0;
+  margin-top: 3px;
+  transition: all 0.15s ease;
+}
+.ingredient-row:hover .ing-checkbox-circle {
+  border-color: var(--tomato);
+}
+.ing-checkbox-circle.checked {
+  background-color: var(--tomato);
+  border-color: var(--tomato);
+}
+.ing-checkbox-circle.checked::after {
+  content: '';
+  position: absolute;
+  left: 4px;
+  top: 1px;
+  width: 4px;
+  height: 8px;
+  border: solid var(--cream);
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+/* Interactive switcher handle */
+.switcher-toggle-btn {
+  width: 40px;
+  height: 22px;
+  border-radius: 11px;
+  background-color: var(--paper-2);
+  border: 1px solid rgba(26,26,20,0.15);
+  position: relative;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  padding: 0;
+}
+.switcher-toggle-handle {
+  position: absolute;
+  top: 1px;
+  left: 1px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background-color: var(--cream);
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+}
+.switcher-toggle-btn.active {
+  background-color: var(--tomato);
+  border-color: var(--tomato);
+}
+.switcher-toggle-btn.active .switcher-toggle-handle {
+  transform: translateX(18px);
+}
+
+/* Method row checklist */
+.method-step-row {
+  display: grid;
+  grid-template-columns: 54px 1fr;
+  gap: 16px;
+  align-items: start;
+  padding: 20px 0;
+  border-top: 1px solid rgba(26,26,20,0.1);
+  cursor: pointer;
+  user-select: none;
+  transition: opacity 0.2s;
+}
+.method-step-row:hover .step-text {
+  color: var(--leaf-d);
+}
+.step-number {
+  font-size: 38px;
+  font-weight: 700;
+  color: var(--tomato);
+  line-height: 1;
+  font-family: var(--mono);
+  transition: color 0.22s ease;
+}
+.step-text {
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--ink);
+  padding-top: 2px;
+  transition: color 0.22s ease;
+}
+.completed-step .step-number {
+  color: var(--paper-2);
+}
+.completed-step .step-text {
+  color: var(--ink-soft);
+  text-decoration: line-through;
+  opacity: 0.65;
+}
+
+/* --- D. KITCHEN MODE WAKE LOCK ACTIVATED --- */
+body.kitchen-mode {
+  background-color: #faf7ef !important; /* Brighter paper display */
+}
+body.kitchen-mode .site-header {
+  transform: translateY(-100%);
+  opacity: 0;
+  pointer-events: none;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+body.kitchen-mode .breadcrumb-container,
+body.kitchen-mode .recipe-intro-meta-section,
+body.kitchen-mode .recipe-navigation-section,
+body.kitchen-mode .related-recipes-section,
+body.kitchen-mode .site-footer {
+  opacity: 0.25;
+  filter: grayscale(0.5);
+}
+body.kitchen-mode .method-step-row .step-text {
+  font-size: 20px;
+  line-height: 1.65;
+  color: #000;
+}
+body.kitchen-mode .method-step-row .step-number {
+  font-size: 44px;
+}
+
+/* --- E. RESPONSIVE QUERIES --- */
+@media (max-width: 980px) {
+  .what-we-sell-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .recipe-workspace-section {
+    grid-template-columns: 1fr;
+    gap: 36px;
+  }
+}
+@media (max-width: 640px) {
+  .what-we-sell-grid {
+    grid-template-columns: 1fr;
+  }
+  .c-split-2 {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+  .prices-controls-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .search-input-wrapper {
+    width: 100%;
+  }
+  .search-input-wrapper input {
+    width: 100%;
+  }
+  .recipe-intro-meta-section {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* --- F. PRINT MEDIA OVERRIDES --- */
+@media print {
+  body, html {
+    background: #ffffff !important;
+    color: #000000 !important;
+    font-size: 11pt !important;
+    line-height: 1.35 !important;
+  }
+  .site-header, 
+  .site-footer,
+  .breadcrumb-container,
+  .recipe-intro-meta-section,
+  .servings-scaler-control,
+  .ingredients-tip,
+  .kitchen-mode-switcher-card,
+  .recipe-closing-photo-wrapper,
+  .recipe-closing-photo-caption,
+  .rajiv-closing-note-card,
+  .recipe-navigation-section,
+  .c-ftr,
+  .c-news,
+  .site-nav,
+  .site-logo {
+    display: none !important;
+  }
+  .recipe-header {
+    border-bottom: 2px solid #000000 !important;
+    padding-bottom: 8px !important;
+    margin-bottom: 20px !important;
+  }
+  .recipe-title {
+    font-size: 22pt !important;
+    font-weight: 700 !important;
+    line-height: 1.1 !important;
+  }
+  .recipe-workspace-section {
+    display: block !important;
+    padding-top: 10px !important;
+  }
+  .ingredients-box {
+    background: transparent !important;
+    border: none !important;
+    padding: 0 !important;
+    margin-bottom: 24px !important;
+    width: 100% !important;
+  }
+  .ingredients-box-title {
+    font-size: 14pt !important;
+    border-bottom: 1px solid #999999 !important;
+    padding-bottom: 3px !important;
+    margin-bottom: 10px !important;
+  }
+  .ingredients-checkbox-list li {
+    padding: 4px 0 !important;
+    border-bottom: 1px dashed #dddddd !important;
+  }
+  .ing-checkbox-circle {
+    display: none !important;
+  }
+  .ing-qty {
+    font-size: 10pt !important;
+    font-weight: bold !important;
+    width: 70px !important;
+    display: inline-block !important;
+    text-align: left !important;
+  }
+  .ing-name {
+    font-size: 10pt !important;
+    display: inline-block !important;
+  }
+  .recipe-method-column {
+    width: 100% !important;
+  }
+  .method-column-title {
+    font-size: 14pt !important;
+    border-bottom: 1px solid #999999 !important;
+    padding-bottom: 3px !important;
+    margin-bottom: 10px !important;
+  }
+  .method-step-row {
+    grid-template-columns: 32px 1fr !important;
+    padding: 10px 0 !important;
+    border-top: 1px solid #eeeeee !important;
+    page-break-inside: avoid !important;
+  }
+  .step-number {
+    font-size: 14pt !important;
+    color: #000000 !important;
+    font-weight: bold !important;
+  }
+  .step-text {
+    font-size: 10pt !important;
+    padding-top: 0 !important;
+  }
+}
+
+/* Ticker Styling (Premium Retro-Editorial Divider Stripe) */
+.ticker {
+  background: var(--cream);
+  border-top: 2px solid rgba(26, 26, 20, 0.12);
+  border-bottom: 2px solid rgba(26, 26, 20, 0.12);
+  padding: 22px 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+}
+
+.ticker__item {
+  font-family: var(--slab);
+  font-size: clamp(18px, 2.5vw, 26px);
+  color: var(--tomato);
+  letter-spacing: 0.01em;
+  line-height: 1.25;
+  font-weight: 400;
+  text-transform: none;
+}
+
+.ticker__sep {
+  color: var(--leaf);
+  font-family: var(--grot);
+  font-weight: 700;
+  font-size: clamp(16px, 2.2vw, 22px);
+  user-select: none;
+  opacity: 0.85;
+}
+
+@media (max-width: 640px) {
+  .ticker {
+    padding: 16px 16px;
+    gap: 6px 12px;
+  }
+}
+
 
