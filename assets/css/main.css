@@ -1652,7 +1652,7 @@ h1, h2, h3, h4 {
   position: relative;
   z-index: 1;
   min-height: 640px;
-  padding: 88px 48px 72px;
+  padding: 88px 0 72px;
   background:
     linear-gradient(
       180deg,
@@ -1668,6 +1668,13 @@ h1, h2, h3, h4 {
     );
   display: flex;
   align-items: flex-end;
+}
+.c-hero-inner {
+  max-width: 1240px;
+  margin: 0 auto;
+  width: 100%;
+  padding: 0 40px;
+  box-sizing: border-box;
 }
 .c-hero.sp-hero-full .c-hero-block {
   max-width: 640px;
@@ -1691,7 +1698,7 @@ h1, h2, h3, h4 {
   .c-hero.sp-hero-full,
   .c-hero.sp-hero-full .c-hero-overlay { min-height: 560px; }
   .c-hero.sp-hero-full .c-hero-overlay {
-    padding: 72px 24px 48px;
+    padding: 72px 0 48px;
     background: linear-gradient(
       180deg,
       rgba(20, 30, 12, 0.45) 0%,
@@ -1700,6 +1707,23 @@ h1, h2, h3, h4 {
     );
     align-items: flex-end;
   }
+  .c-hero-inner {
+    padding: 0 24px;
+  }
+}
+
+.sp-welcome-box {
+  border-left: 4px solid var(--tomato);
+  padding: 4px 0 4px 24px;
+  margin: 12px 0 40px 0;
+  max-width: 76ch;
+}
+.sp-welcome-box p {
+  font-family: var(--slab);
+  font-size: clamp(18px, 2.3vw, 24px);
+  line-height: 1.45;
+  color: var(--leaf-d);
+  margin: 0;
 }
 
 .c-hero-block.sp-hero-v5 {
