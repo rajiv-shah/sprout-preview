@@ -2560,4 +2560,13 @@ body.kitchen-mode .method-step-row .step-number {
   }
 }
 
-
+/* Custom overrides to ensure list bold items and paragraph bold text display inline rather than as block headings */
+.page-prose li strong,
+.page-prose p strong {
+  display: inline !important;
+  font-family: inherit !important;
+  font-size: inherit !important;
+  color: inherit !important;
+  margin: 0 !important;
+  font-weight: 700 !important;
+}
