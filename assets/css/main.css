@@ -2546,17 +2546,24 @@ body.kitchen-mode .method-step-row .step-number {
   }
   .site-nav {
     width: 100%;
-    justify-content: center;
-    padding: 0 10px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none; /* Hide scrollbar Firefox */
+    padding: 0 4px;
+  }
+  .site-nav::-webkit-scrollbar {
+    display: none; /* Hide scrollbar Chrome/Safari */
   }
   .site-nav ul {
-    gap: 2px;
-    flex-wrap: wrap;
-    justify-content: center;
+    gap: 0;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
   }
   .site-nav ul li a {
-    padding: 6px 10px;
-    font-size: 11px;
+    padding: 6px 8px;
+    font-size: 10.5px;
+    letter-spacing: 0.02em;
+    white-space: nowrap;
   }
 }
 
