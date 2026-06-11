@@ -2756,3 +2756,45 @@ body.kitchen-mode .method-step-row .step-number {
   color: var(--leaf);
   font-weight: 700;
 }
+
+/* ==========================================================================
+   FUNDING PAGE — MOBILE FIXES
+   ========================================================================== */
+
+/* 1. Forecast table: tighten padding and font on small screens so all 4
+      columns fit comfortably without the wrapper needing horizontal scroll  */
+@media (max-width: 640px) {
+  .sp-financial-table th,
+  .sp-financial-table td {
+    padding: 10px 10px;
+    font-size: 12px;
+  }
+
+  .sp-financial-table th {
+    font-size: 10px;
+    letter-spacing: 0.04em;
+  }
+}
+
+/* 2. Manifesto / Get Involved block: the inline style uses -40px negative
+      margin to bleed to the shell edge, but on mobile the shell only has
+      ~24px padding, so correct the bleed to match.                         */
+@media (max-width: 640px) {
+  .sp-manifesto {
+    margin-left: -24px  !important;
+    margin-right: -24px !important;
+    padding-left: 24px  !important;
+    padding-right: 24px !important;
+  }
+
+  /* Ensure the hero buttons stack cleanly and don't overflow */
+  .sp-manifesto .c-hero-btns {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .sp-manifesto .c-btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
