@@ -2,17 +2,17 @@
     "version": "https://jsonfeed.org/version/1",
     "title": "Sprout",
     "description": "",
-    "home_page_url": "https://rajiv-shah.github.io/sprout-preview",
-    "feed_url": "https://rajiv-shah.github.io/sprout-preview/feed.json",
+    "home_page_url": "https://sprout-grocery.co.uk",
+    "feed_url": "https://sprout-grocery.co.uk/feed.json",
     "user_comment": "",
-    "icon": "https://rajiv-shah.github.io/sprout-preview/media/website/Logo.af",
+    "icon": "https://sprout-grocery.co.uk/media/website/Logo-web-3.png",
     "author": {
         "name": "Rajiv"
     },
     "items": [
         {
-            "id": "https://rajiv-shah.github.io/sprout-preview/articles/index.html",
-            "url": "https://rajiv-shah.github.io/sprout-preview/articles/index.html",
+            "id": "https://sprout-grocery.co.uk/articles/index.html",
+            "url": "https://sprout-grocery.co.uk/articles/index.html",
             "title": "Articles",
             "summary": "Articles",
             "content_html": "<p>Articles</p>",

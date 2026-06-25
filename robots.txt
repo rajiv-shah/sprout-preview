@@ -4,4 +4,4 @@ User-agent: GPTBot
 Disallow: /
 User-agent: *
 Disallow:
-Sitemap: https://rajiv-shah.github.io/sprout-preview/sitemap.xml
+Sitemap: https://sprout-grocery.co.uk/sitemap.xml
