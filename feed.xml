@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/">
     <title>Sprout</title>
-    <link href="file:///Users/rajiv/Documents/Publii/sites/sprout/preview/feed.xml" rel="self" />
-    <link href="file:///Users/rajiv/Documents/Publii/sites/sprout/preview" />
+    <link href="https://rajiv-shah.github.io/sprout-preview/feed.xml" rel="self" />
+    <link href="https://rajiv-shah.github.io/sprout-preview" />
     <updated>2026-02-07T11:12:52+00:00</updated>
     <author>
         <name>Rajiv</name>
     </author>
-    <id>file:///Users/rajiv/Documents/Publii/sites/sprout/preview</id>
+    <id>https://rajiv-shah.github.io/sprout-preview</id>
 
     <entry>
         <title>Articles</title>
         <author>
             <name>Rajiv</name>
         </author>
-        <link href="file:///Users/rajiv/Documents/Publii/sites/sprout/preview/articles/index.html"/>
-        <id>file:///Users/rajiv/Documents/Publii/sites/sprout/preview/articles/index.html</id>
+        <link href="https://rajiv-shah.github.io/sprout-preview/articles/index.html"/>
+        <id>https://rajiv-shah.github.io/sprout-preview/articles/index.html</id>
 
         <updated>2026-02-07T11:12:52+00:00</updated>
             <summary type="html">

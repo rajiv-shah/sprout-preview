@@ -2,17 +2,17 @@
     "version": "https://jsonfeed.org/version/1",
     "title": "Sprout",
     "description": "",
-    "home_page_url": "file:///Users/rajiv/Documents/Publii/sites/sprout/preview",
-    "feed_url": "file:///Users/rajiv/Documents/Publii/sites/sprout/preview/feed.json",
+    "home_page_url": "https://rajiv-shah.github.io/sprout-preview",
+    "feed_url": "https://rajiv-shah.github.io/sprout-preview/feed.json",
     "user_comment": "",
-    "icon": "file:///Users/rajiv/Documents/Publii/sites/sprout/preview/media/website/Logo-web-3.png",
+    "icon": "https://rajiv-shah.github.io/sprout-preview/media/website/Logo-web-3.png",
     "author": {
         "name": "Rajiv"
     },
     "items": [
         {
-            "id": "file:///Users/rajiv/Documents/Publii/sites/sprout/preview/articles/index.html",
-            "url": "file:///Users/rajiv/Documents/Publii/sites/sprout/preview/articles/index.html",
+            "id": "https://rajiv-shah.github.io/sprout-preview/articles/index.html",
+            "url": "https://rajiv-shah.github.io/sprout-preview/articles/index.html",
             "title": "Articles",
             "summary": "Articles",
             "content_html": "<p>Articles</p>",
