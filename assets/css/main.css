@@ -2870,8 +2870,8 @@ body.kitchen-mode .method-step-row .step-number {
   font-family: 'VeneerTwo';
   src: url('../fonts/veneer-two.woff2') format('woff2'),
        url('../fonts/veneer-two.woff') format('woff'),
-       url('../fonts/VeneerTwo.otf') format('opentype');
-  font-display: swap;
+       url('../fonts/veneer-two.otf') format('opentype');
+  font-display: block;
 }
 
 /* ----------------------------------------------------------
