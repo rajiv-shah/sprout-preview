@@ -2868,9 +2868,9 @@ body.kitchen-mode .method-step-row .step-number {
    ---------------------------------------------------------- */
 @font-face {
   font-family: 'VeneerTwo';
-  src: url('../fonts/veneer-two.woff2') format('woff2'),
-       url('../fonts/veneer-two.woff') format('woff'),
-       url('../fonts/veneer-two.otf') format('opentype');
+  src: url('../fonts/Veneer-TwoRegular.woff2') format('woff2'),
+       url('../fonts/Veneer-TwoRegular.woff') format('woff'),
+       url('../fonts/Veneer-TwoRegular.otf') format('opentype');
   font-display: block;
 }
 
