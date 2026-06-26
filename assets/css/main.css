@@ -1335,7 +1335,7 @@ h1, h2, h3, h4 {
   position: relative;
   align-items: start;
 }
-.c-timeline.sp-timeline-refined .c-timeline-row:last-child { border-bottom: 1px solid rgba(26,26,20,0.4); }
+.c-timeline.sp-timeline-refined .c-timeline-row:last-child { border-bottom: none; }
 
 .c-timeline.sp-timeline-refined .c-timeline-row::before {
   content: "";
