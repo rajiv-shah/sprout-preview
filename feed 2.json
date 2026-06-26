@@ -1,0 +1,28 @@
+{
+    "version": "https://jsonfeed.org/version/1",
+    "title": "Sprout",
+    "description": "",
+    "home_page_url": "https://rajiv-shah.github.io/sprout-preview",
+    "feed_url": "https://rajiv-shah.github.io/sprout-preview/feed.json",
+    "user_comment": "",
+    "icon": "https://rajiv-shah.github.io/sprout-preview/media/website/Logo-web.png",
+    "author": {
+        "name": "Rajiv"
+    },
+    "items": [
+        {
+            "id": "https://rajiv-shah.github.io/sprout-preview/articles/index.html",
+            "url": "https://rajiv-shah.github.io/sprout-preview/articles/index.html",
+            "title": "Articles",
+            "summary": "Articles",
+            "content_html": "<p>Articles</p>",
+            "author": {
+                "name": "Rajiv"
+            },
+            "tags": [
+            ],
+            "date_published": "2026-02-07T11:12:52+00:00",
+            "date_modified": "2026-02-07T11:12:52+00:00"
+        }
+    ]
+}
